@@ -1,7 +1,18 @@
 <script lang="ts">
 	import { T, useFrame } from '@threlte/core'
-	import { OrbitControls, useGltf } from '@threlte/extras'
+	import { OrbitControls, useGltf, Text } from '@threlte/extras'
 	import Bloom from './bloom.svelte'
+// text
+	let text = 'Why are you looking at my bottom?'
+	let bevelEnabled = true
+	let bevelOffset = 0
+	let bevelSegments = 20
+	let bevelSize = 0.2
+	let bevelThickness = 0.1
+	let curveSegments = 12
+	let height = 1
+	let size = 20
+	let smooth = 0.1
 
 	let y = 2
 	let rotation = 0
@@ -38,3 +49,26 @@
 {#await useGltf('/assets/garden.glb') then garden}
 	<T is={garden.scene} rotation.y={rotation} />
 {/await}
+
+<T.Mesh>
+    <Text
+      font={'/fonts/Inter-SemiBold.woff2'}
+      {text}
+      {bevelEnabled}
+      {bevelOffset}
+      {bevelSegments}
+      {bevelSize}
+      {bevelThickness}
+      {curveSegments}
+      {height}
+      {size}
+      {smooth}
+    />
+    <T.MeshStandardMaterial
+      color="#FD3F00"
+      toneMapped={false}
+      metalness={1.0}
+      roughness={0.1}
+    />
+  </T.Mesh>
+
